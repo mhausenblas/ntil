@@ -12,7 +12,7 @@
             "portMappings": [{
                 "containerPort": 9889,
                 "protocol": "tcp"
-                },
+                }
             ]
         }
     },
