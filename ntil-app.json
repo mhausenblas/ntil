@@ -1,14 +1,23 @@
 {
-  "container": {
-    "type": "DOCKER",
-    "docker": {
-      "image": "libmesos/ubuntu"
-    }
-  },
-  "id": "ntil",
-  "instances": 1,
-  "cpus": 1,
-  "mem": 512,
-  "uris": [ "https://github.com/mhausenblas/ntil/archive/master.zip"],
-  "cmd": "chmod u+x ntil-master/ntil-server.py && ntil-master/ntil-server.py -e 2015-05-15T17:00:00 -t dcos"
+    "id": "ntil",
+    "instances": 1,
+    "cpus": 1,
+    "mem": 512,
+    "user": "vagrant",
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "libmesos/ubuntu",
+            "network": "BRIDGE",
+            "portMappings": [{
+                "containerPort": 9889,
+                "protocol": "tcp"
+                },
+            ]
+        }
+    },
+    "uris": [
+        "https://github.com/mhausenblas/ntil/archive/master.zip"
+    ],
+    "cmd": "chmod u+x ntil-master/ntil-server.py && ntil-master/ntil-server.py -e 2015-05-15T17:00:00 -t dcos"
 }
