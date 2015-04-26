@@ -19,5 +19,5 @@
     "uris": [
         "https://github.com/mhausenblas/ntil/archive/master.zip"
     ],
-    "cmd": "chmod u+x ntil-master/ntil-server.py && ntil-master/ntil-server.py -e 2015-05-15T17:00:00 -t dcos"
+    "cmd": "ntil-master/ntil-server.py -e 2015-05-15T17:00:00 -t dcos"
 }
