@@ -7,8 +7,8 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "libmesos/ubuntu",
-            "network": "BRIDGE",
+            "image": "python:2.7",
+            "network": "HOST",
             "portMappings": [{
                 "containerPort": 9889,
                 "protocol": "tcp"

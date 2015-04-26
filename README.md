@@ -18,10 +18,16 @@ Ramp up your [playa-mesos](https://github.com/mesosphere/playa-mesos) sandbox, l
 
 If you do a Docker deployment on Marathon the first time, now would be a good time to read [Running Docker Containers on Marathon](https://mesosphere.github.io/marathon/docs/native-docker.html). In a nutshell: make sure Docker is installed and containerizer enabled.
 
+Test ntil in Docker directly (inside the Playa sandbox):
 
-Deploy ntil app via Marathon HTTP API:
+    $ docker run -d --net=host --name ntil-test -p 127.0.0.1:9889:9889 -v "$PWD":/usr/ntil -w /usr/ntil python:2.7 python ntil-server.py -e 2015-05-15T17:00:00 -t dcos
+
+After the above docker container is launched (check with `docker ps`) you should be able to access the app through pointing your browser to http://localhost:9889/
+
+Now, deploy ntil app via the Marathon HTTP API:
 
     $ http POST http://10.141.141.10:8080/v2/apps < ntil-app.json
+
 
 ### AWS
 
