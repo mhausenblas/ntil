@@ -3,13 +3,17 @@
 The ntil app server.
 
 Usage: 
-     
-    ./ntil.py [-h|-v]
+
+    ./ntil-server.py [-h|-v|-e|-t]
+
+Note that when -e or --event is not set, the target event is set to 1 hour from now.
+Note that when -t or --topic is not set, the topic is set to 'mesosphere'.
 
 Example: 
-     
-    ./ntil.py 
 
+    ./ntil-server.py -e 2015-05-15T17:00:00 -t dcos
+
+Above usage example sets the target event to 15 May 2015 at 5pm local time, watching Twitter for the topic 'dcos'
 
 @author: Michael Hausenblas, http://mhausenblas.info/#i
 @since: 2015-04-25
@@ -128,13 +132,22 @@ class NtilServer(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     print("="*80)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hv', ['help','verbose'])
+        opts, args = getopt.getopt(sys.argv[1:], 'hve:t:', ['help','verbose', 'event', 'topic'])
+        target_event = (datetime.datetime.now() + datetime.timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%S")
+        topic = 'mesosphere'
         for opt, arg in opts:
             if opt in ('-h', '--help'):
                 print(__doc__)
                 sys.exit()
             elif opt in ('-v', '--verbose'): 
                 DEBUG = True
+            elif opt in ('-e', '--event'):
+                target_event = arg
+            elif opt in ('-t', '--topic'): 
+                topic = arg
+        print('setting target event to %s' %(target_event))
+        print('looking out for topic "%s"' %(topic))
+        
         from BaseHTTPServer import HTTPServer
         server = HTTPServer(('', 9889), NtilServer)
         print('\nntil server started, use {Ctrl+C} to shut-down ...')
