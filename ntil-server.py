@@ -13,7 +13,7 @@ Example:
 
     ./ntil-server.py -e 2015-05-15T17:00:00 -t dcos
 
-Above usage example sets the target event to 15 May 2015 at 5pm local time, watching Twitter for the topic 'dcos'
+Above usage example sets the target event to 15 May 2015 at 5pm local time, watching Twitter for the topic 'dcos'.
 
 @author: Michael Hausenblas, http://mhausenblas.info/#i
 @since: 2015-04-25
@@ -35,12 +35,22 @@ import socket
 import subprocess
 import re
 import csv
+import BaseHTTPServer
 
-from BaseHTTPServer import BaseHTTPRequestHandler
 from os import curdir, pardir, sep
 
+################################################################################
+# Config
+#
 DEBUG = False
+NTIL_PORT = 9889
 CONTENT_DIR = 'content'
+
+################################################################################
+# Global vars
+#
+target_event = (datetime.datetime.now() + datetime.timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%S")
+topic = 'mesosphere'
 
 if DEBUG:
     FORMAT = '%(asctime)-0s %(levelname)s %(message)s [at line %(lineno)d]'
@@ -51,7 +61,7 @@ else:
 
 
 # the ntil service
-class NtilServer(BaseHTTPRequestHandler):
+class NtilServer(BaseHTTPServer.BaseHTTPRequestHandler):
     
     # serves static content and handles the API calls through service/
     def do_GET(self):
@@ -86,11 +96,12 @@ class NtilServer(BaseHTTPRequestHandler):
         logging.info('API call: %s ' %(apicall))
         if apicall == '/service/target':
             logging.debug('event target')
-            event_target = { 'date' : 'not set' }
-            self.send_JSON(event_target)
-        elif apicall == '/service/reset':
+            target_event_date = { 'date' : target_event }
+            self.send_JSON(target_event_date)
+        elif apicall == '/service/topic':
             logging.debug('reset')
-            self.send_JSON({ })
+            target_topic = { 'topic' : topic }
+            self.send_JSON(target_topic)
         else:
             self.send_error(404,'File Not Found: %s' % apicall)
         return
@@ -133,8 +144,6 @@ if __name__ == '__main__':
     print("="*80)
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hve:t:', ['help','verbose', 'event', 'topic'])
-        target_event = (datetime.datetime.now() + datetime.timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%S")
-        topic = 'mesosphere'
         for opt, arg in opts:
             if opt in ('-h', '--help'):
                 print(__doc__)
@@ -149,9 +158,15 @@ if __name__ == '__main__':
         print('looking out for topic "%s"' %(topic))
         
         from BaseHTTPServer import HTTPServer
-        server = HTTPServer(('', 9889), NtilServer)
-        print('\nntil server started, use {Ctrl+C} to shut-down ...')
-        server.serve_forever()
+        
+        server_class = BaseHTTPServer.HTTPServer
+        ntil_server = server_class(('', NTIL_PORT), NtilServer)
+        try:
+            print('\nStarting ntil server, use {Ctrl+C} to shut-down ...')
+            ntil_server.serve_forever()
+        except KeyboardInterrupt:
+            pass
+        ntil_server.server_close()
     except getopt.GetoptError, err:
         print(err)
         print(__doc__)
