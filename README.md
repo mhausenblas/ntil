@@ -22,16 +22,19 @@ Test ntil in Docker directly (inside the Playa sandbox):
 
     $ docker run -d --net=host --name ntil-test -p 127.0.0.1:9889:9889 -v "$PWD":/usr/ntil -w /usr/ntil python:2.7 python ntil-server.py -e 2015-05-15T17:00:00 -t dcos
 
-After the above docker container is launched (check with `docker ps`) you should be able to access the app through pointing your browser to http://localhost:9889/
+After the above Docker container is launched, you may want to check with `docker ps` (and `docker kill`/`docker rm` respectively afterwards) you should be able to access the app through pointing your browser to http://localhost:9889/ where the UI is or via the following API commands:
 
-Now, deploy ntil app via the Marathon HTTP API:
+    $ http http://localhost:9889/service/target
+    $ http http://localhost:9889/service/topic
+
+Next, you can deploy the ntil app via the Marathon HTTP API (using again the same Docker image from above):
 
     $ http POST http://10.141.141.10:8080/v2/apps < ntil-app.json
 
 
 ### AWS
 
-
+TBD.
 
 
 ## To do
