@@ -11,14 +11,8 @@
             "network": "HOST",
             "portMappings": [
                 { "containerPort": 9889, "hostPort": 9889, "protocol": "tcp" }
-            ],
-            "parameters": [
-                { "key": "w", "value": "/usr/ntil" }
             ]
-        },
-        "volumes": [
-            { "containerPath": "/usr/ntil", "hostPath": "/home/vagrant", "mode": "RO" }
-        ]
+        }
     },
     "uris": [
         "https://github.com/mhausenblas/ntil/archive/master.zip"
