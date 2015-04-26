@@ -17,7 +17,7 @@
             ]
         },
         "volumes": [
-            { "containerPath": "/usr/ntil", "hostPath": "/home/vagrant" }
+            { "containerPath": "/usr/ntil", "hostPath": "/home/vagrant", "mode": "RO" }
         ]
     },
     "uris": [
