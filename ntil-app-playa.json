@@ -7,15 +7,12 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "python:2.7",
+            "image": "mhausenblas/ntil:latest",
             "network": "HOST",
             "portMappings": [
                 { "containerPort": 9889, "hostPort": 9889, "protocol": "tcp" }
             ]
         }
     },
-    "uris": [
-        "https://github.com/mhausenblas/ntil/archive/master.zip"
-    ],
-    "cmd": "ntil-master/ntil-server.py -e 2015-05-15T17:00:00 -t dcos"
+    "cmd": "-e 2015-05-15T17:00:00 -t test"
 }
