@@ -9,5 +9,5 @@
             "image": "mhausenblas/ntil:latest"
         }
     },
-    "args": ["-e", "2015-05-15T17:00:00", "-t", "test" ]
+    "args": ["-v", "-e", "2015-05-15T17:00:00", "-t", "test" ]
 }
