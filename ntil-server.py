@@ -110,7 +110,7 @@ class NtilServer(BaseHTTPServer.BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         if DEBUG:
             try:
-                BaseHTTPRequestHandler.log_message(self, format, *args)
+                BaseHTTPServer.BaseHTTPRequestHandler.log_message(self, format, *args)
             except IOError:
                 pass
         else:
