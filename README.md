@@ -30,6 +30,7 @@ After the above Docker container is launched, you may want to check with `docker
 Next, you can deploy the ntil app via the Marathon HTTP API (using again the same Docker image from above):
 
     $ http POST http://10.141.141.10:8080/v2/apps < ntil-app-playa.json
+    $ http GET http://10.141.141.10:8080/v2/apps/ntil
 
 
 ### AWS
