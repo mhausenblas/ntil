@@ -9,6 +9,8 @@ Note that I'm using [HTTPie](http://httpie.org/) here in the example, but you ca
 
 All deployments are based on the Docker image [mhausenblas/ntil](https://registry.hub.docker.com/u/mhausenblas/ntil/).
 
+In order for Twitter watch part to work you'll need to supply your Twitter credentials. You can obtain those from creating a Twitter application via [apps.twitter.com](https://apps.twitter.com/).
+
 ### Playa Mesos
 
 Ramp up your [playa-mesos](https://github.com/mesosphere/playa-mesos) sandbox, log in and get the ntil app:
@@ -34,10 +36,6 @@ Next, you can deploy the ntil app via the Marathon HTTP API (using again the sam
     $ http POST http://10.141.141.10:8080/v2/apps < ntil-app-playa.json
     $ http GET http://10.141.141.10:8080/v2/apps/ntil
     $ http DELETE http://10.141.141.10:8080/v2/apps/ntil
-
-Twitter integration:
-
-    $ pip install TwitterSearch
 
 
 ### AWS

@@ -1,16 +1,21 @@
 var BASE_URL = "http://" + window.location.host;
+var updates_timer;
 
 // main event loop
 $(document).ready(function() {
     console.info('Setting target date and topic …')
     getTargetDate();
-    getTargetTopic();
-    $("#updates").fadeOut(6000);
+    getTargetUpdates();
     
     $("#countdown").click(function(event) {
-         $("#updates").fadeIn(1000);
-         $("#updates").fadeOut(6000);
+         getTargetTopic();
     });
+    
+    $("#updates").click(function(event) {
+         $("#updates").fadeOut(500);
+         getTargetUpdates();
+    });
+    
 });
 
 function getTargetDate() {
@@ -31,6 +36,21 @@ function getTargetTopic() {
         console.debug(d);
     });
 }
+
+function getTargetUpdates() {
+    var apicall = BASE_URL + '/service/updates';
+    $.getJSON(apicall, function(d) {
+        $("#updates").html("");
+        for(u in d.update){
+            $("#updates").append('<p>' + d.update[u] + '</p');
+        }
+        
+        console.debug("GET " + apicall);
+        console.debug(d);
+        $("#updates").fadeIn(1000);
+    });
+}
+
 
 // lifted from http://stackoverflow.com/questions/9335140/how-to-countdown-to-a-date
 function countDownTimer(dt, id){
