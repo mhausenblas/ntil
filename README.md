@@ -31,6 +31,7 @@ Next, you can deploy the ntil app via the Marathon HTTP API (using again the sam
 
     $ http POST http://10.141.141.10:8080/v2/apps < ntil-app-playa.json
     $ http GET http://10.141.141.10:8080/v2/apps/ntil
+    $ http DELETE http://10.141.141.10:8080/v2/apps/ntil
 
 
 ### AWS

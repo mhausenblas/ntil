@@ -2,12 +2,12 @@
     "id": "ntil",
     "instances": 1,
     "cpus": 1,
-    "mem": 512,
+    "mem": 100,
     "container": {
         "type": "DOCKER",
         "docker": {
             "image": "mhausenblas/ntil:latest"
         }
     },
-    "cmd": "-e 2015-05-15T17:00:00 -t test"
+    "args": ["-e", "2015-05-15T17:00:00", "-t", "test" ]
 }
