@@ -7,6 +7,8 @@ This is a DCOS demo app, a simple event counter that watches out for a topic on 
 I will assume that you have the [DCOS](https://mesosphere.com/product/) installed. We will use Marathon to deploy the ntil app.
 Note that I'm using [HTTPie](http://httpie.org/) here in the example, but you can achieve similar results using `curl`.
 
+All deployments are based on the Docker image [mhausenblas/ntil](https://registry.hub.docker.com/u/mhausenblas/ntil/).
+
 ### Playa Mesos
 
 Ramp up your [playa-mesos](https://github.com/mesosphere/playa-mesos) sandbox, log in and get the ntil app:
@@ -33,6 +35,10 @@ Next, you can deploy the ntil app via the Marathon HTTP API (using again the sam
     $ http GET http://10.141.141.10:8080/v2/apps/ntil
     $ http DELETE http://10.141.141.10:8080/v2/apps/ntil
 
+Twitter integration:
+
+    $ pip install TwitterSearch
+
 
 ### AWS
 
@@ -44,5 +50,5 @@ TBD.
 - [x]  CLI params: target event as timestamp in ISO8601 format, #topic
 - [x]  Marathon deployment https://mesosphere.github.io/marathon/docs/application-basics.html
 - [x]  Test in playa
-- [ ]  Twitter integration for updates https://github.com/ckoepp/TwitterSearch 
+- [ ]  Twitter watch integration for updates https://github.com/ckoepp/TwitterSearch 
 - [ ]  AWS setup
