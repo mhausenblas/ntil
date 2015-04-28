@@ -4,10 +4,7 @@ This is a DCOS demo app, a simple event counter that watches out for a topic on 
 
 ## Deployments
 
-I will assume that you have the [DCOS](https://mesosphere.com/product/) installed. We will use Marathon to deploy the ntil app.
-Note that I'm using [HTTPie](http://httpie.org/) here in the example, but you can achieve similar results using `curl`.
-
-All deployments are based on the Docker image [mhausenblas/ntil](https://registry.hub.docker.com/u/mhausenblas/ntil/).
+In all scenarios below, we will use [Marathon](https://mesosphere.github.io/marathon/) to deploy the ntil app. Also note that I'm using [HTTPie](http://httpie.org/) here in the example, but you can achieve similar results using `curl`. All deployments are based on the Docker image [mhausenblas/ntil](https://registry.hub.docker.com/u/mhausenblas/ntil/).
 
 In order for the Twitter watch part to work you'll need to supply your Twitter credentials. You can obtain those from creating a Twitter application via [apps.twitter.com](https://apps.twitter.com/).
 
@@ -65,13 +62,13 @@ Another note concerning the build process (which should not effect you in normal
 
 ### AWS
 
-TBD.
+I assume that you have the [DCOS](https://mesosphere.com/product/) EA or PB version installed, which comes with Marathon pre-installed.
 
+So first log into the instance where the master runs:
 
-## To do
-
-- [x]  CLI params: target event as timestamp in ISO8601 format, #topic
-- [x]  Marathon deployment https://mesosphere.github.io/marathon/docs/application-basics.html
-- [x]  Test in playa
-- [x]  Twitter watch integration for updates https://github.com/ckoepp/TwitterSearch 
-- [ ]  AWS setup
+    $ ssh -i ~/.ssh/mesosphere.pem core@ec2-52-17-39-227.eu-west-1.compute.amazonaws.com
+    $ git clone https://github.com/mhausenblas/ntil.git
+    $ cd ntil
+    $ alias http='docker run -it --rm --net=host clue/httpie'
+    $ cp ntil-app-aws.json my-ntil-app-aws.json # edit to include your Twitter credentials
+    $ http http://ec2-52-17-39-227.eu-west-1.compute.amazonaws.com:8080/v2/apps/ < my-ntil-app-aws.json
