@@ -69,6 +69,17 @@ So first log into the instance where the master runs:
     $ ssh -i ~/.ssh/mesosphere.pem core@ec2-52-17-39-227.eu-west-1.compute.amazonaws.com
     $ git clone https://github.com/mhausenblas/ntil.git
     $ cd ntil
-    $ alias http='docker run -it --rm --net=host clue/httpie'
+    $ alias http='docker run -i --rm --net=host clue/httpie'
     $ cp ntil-app-aws.json my-ntil-app-aws.json # edit to include your Twitter credentials
-    $ http http://ec2-52-17-39-227.eu-west-1.compute.amazonaws.com:8080/v2/apps/ < my-ntil-app-aws.json
+    $ vi my-ntil-app-aws.json # edit to include your Twitter credentials
+    $ http POST http://ec2-52-17-39-227.eu-west-1.compute.amazonaws.com:8080/v2/apps < my-ntil-app-aws.json
+
+Now, have a look in the Marathon UI:
+
+![AWS deployment: Marathon UI](doc/aws-marathon-deployment.png)
+
+In my case, Mesos has placed the app on instance `ec2-52-17-218-139.eu-west-1.compute.amazonaws.com` (ignore the randomly assigned port `10000`).
+Use the FQDN you find here and replace the port with `9889` (ntils default service port) and you're done:
+
+![AWS deployment: ntil](doc/aws-ntil.png)
+
