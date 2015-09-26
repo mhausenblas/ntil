@@ -64,13 +64,13 @@ Another note concerning the build process (which should not effect you in normal
 
 I assume that you have the [DCOS](https://mesosphere.com/product/) EA or PB version installed, which comes with Marathon pre-installed.
 
-So first log into the instance where the master runs:
+So now it's time to log into a cluster instance and install and deploy ntil:
 
     $ ssh -i ~/.ssh/mesosphere.pem core@ec2-52-17-39-227.eu-west-1.compute.amazonaws.com
     $ git clone https://github.com/mhausenblas/ntil.git
     $ cd ntil
     $ alias http='docker run -i --rm --net=host clue/httpie'
-    $ cp ntil-app-aws.json my-ntil-app-aws.json # edit to include your Twitter credentials
+    $ cp ntil-app-aws.json my-ntil-app-aws.json
     $ vi my-ntil-app-aws.json # edit to include your Twitter credentials
     $ http POST http://ec2-52-17-39-227.eu-west-1.compute.amazonaws.com:8080/v2/apps < my-ntil-app-aws.json
 
